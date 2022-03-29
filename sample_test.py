@@ -18,6 +18,9 @@ def importing_data_into_db():
 # importing_data_into_db() to be run only once
 
 
+
+
+
 #
 # def all_priorities():
 #     cursor.execute("Select Graduation_Stream from test_3")
