@@ -1,7 +1,7 @@
 import pandas as pd
 from sqlalchemy import create_engine
 import mysql.connector
-from dummy_server import name
+
 
 
 # connector = mysql.connector.connect(host='localhost', database='Test_2', user='root', password='root')
@@ -20,8 +20,8 @@ from dummy_server import name
 # user_name = input('Please enter username:')
 # passwd = input('Please enter password')
 
-print(name)
-
+filename = None
+print(filename)
 
 
 

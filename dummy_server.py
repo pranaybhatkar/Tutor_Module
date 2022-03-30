@@ -59,7 +59,6 @@ def get_tutor(tutor_id: int = Path(None, description="Enter the ID of the Tutor:
     return {"Error": "Tutor does not exist"}
 
 
-
 # @app.post("/Create-Tutor/{tutor_name, tutor_id}")
 # def create_tutor(tutor_name: str, tutor_id: int tutor_obj: Tutor):
 #     if tutor_name in Tutors:
@@ -98,17 +97,23 @@ def get_tech_stack_certifications():
 
 @app.get("/Shortlisting_the_subjects")
 def get_tech_stack_certifications():
-    return {"The following list displays the subjects which are known to five or more than five students"
+    # return {"The following list displays the subjects which are known to five or more than five students"
+    #         : list_with_subject_count_greater_than_five}
+    return {"shortlist"
             : list_with_subject_count_greater_than_five}
 
 
 @app.get("/Weightage_per_Subject")
 def get_tech_stack_certifications():
-    return {"The following list displays subjects and their corresponding weightage"
+    #     return {"The following list displays subjects and their corresponding weightage"
+    #             : final_weightage_as_tuple}
+    return {"weightage"
             : final_weightage_as_tuple}
 
 
 @app.get("/Time_Period_per_Subject")
 def get_tech_stack_certifications():
-    return {"The following list displays subjects and corresponding time alloted to each subject"
+    # return {"The following list displays subjects and corresponding time alloted to each subject"
+    #         : final_time_period_as_tuple}
+    return {"Time"
             : final_time_period_as_tuple}
