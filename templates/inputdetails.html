@@ -1,4 +1,3 @@
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,22 +7,17 @@
 </head>
 <body>
 	<h1>Input Details</h1>
-    <form action="inputdetails.html" method="POST">
+    <form action="" method="POST" enctype="multipart/form-data">
         <label>
-            Please enter your username:
-            <input type="text" name="username" value = "pranay bhatkar" minlength="3" placeholder="Full Name prefered" required>
+            Please enter the excel file containing Batch Data:
+            <input type="file" name="data_file" placeholder="Excel file to be selected" required>
         </label>
-    <br>
-        <label>Please enter your password:
-        <input type="password" name="password" value="" placeholder="Enter Password" required></label>
+
     <br>
         <button type="submit">Submit</button> 
         <button type="reset">Reset</button>
 
     </form>
+    <script type="text/javascript" src="./main.js"></script>
 </body>
 </html>
-
-
-
-
