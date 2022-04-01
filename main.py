@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
 from Priorities import CS_IT_Count, Non_CS_IT_Count, Total_count, unique_list, final_answer_as_tuple, \
     list_with_subject_count_greater_than_five, final_weightage_as_tuple, final_time_period_as_tuple
@@ -38,12 +39,12 @@ app.add_middleware(
 #                }
 #           }
 
-#
-# class Tutor(BaseModel):
-#     username: str
-#     password: str
-#
-#
+
+class Tutor(BaseModel):
+    username: str
+    password: str
+
+
 # @app.post("/Add_Tutor")
 # async def add_tutor(tutor_name: str = Form(...), password: str = Form(...)):
 #     print(tutor_name)
@@ -85,20 +86,23 @@ async def get_count():
 #     return {"The total count of students is ": Total_count}
 
 
-@app.get("/index")
-def index(request: Request, response_class: HTMLResponse):
+# @app.get("/index")
+# def index(request: Request, response_class: HTMLResponse):
+#     return templates.TemplateResponse('welcome.html', context={"request": request})
+
+# @app.get("/input_details")
+# async def index(request: Request, response_class: HTMLResponse):
+#     return templates.TemplateResponse('input_validation.html', context={"request": request})
+
+
+@app.post("/input_details")
+def index(request: Request, tutor_name: str = Form(...), password: str = Form(...)):
     return templates.TemplateResponse('welcome.html', context={"request": request})
 
 
-# @app.post("/Submit_File")
-# async def file_download(request: Request, response_class: HTMLResponse, input_data: UploadFile = File(...)):
-#     print(input_data.filename)
-#     print(input_data.content_type)
-#     return templates.TemplateResponse('input_validation.html', context={"request": request})
-
-@app.get("/input_details")
-def index(request: Request, response_class: HTMLResponse):
-    return templates.TemplateResponse('input_validation.html', context={"request": request})
+# @app.get("/Outputs")
+# def index(request: Request):
+#     return templates.TemplateResponse('index.html', context={"request": request})
 
 
 @app.get("/Tech_Stack_Certifications")

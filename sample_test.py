@@ -9,17 +9,12 @@ import mysql.connector
 
 
 def importing_data_into_db():
-    file_name = input("Enter the file name with .xlsx extension:")
-    df = pd.read_excel(file_name)
-    engine = create_engine("mysql://root:root@localhost/Test_2")
+    df = pd.read_excel('Fynd_Batch3.xlsx')
+    engine = create_engine("mysql://up2ocb1hrji2ux0d:KEuBHlyXcanciLh2Dtgz@bncm4psrmotblosp6jbg-mysql.services.clever-cloud.com:3306/bncm4psrmotblosp6jbg")
     df.to_sql('test_3', con=engine, if_exists='append', index=False)
     print("Executed!")
 
-# importing_data_into_db() to be run only once
-
-
-
-
+# importing_data_into_db() # to be run only once
 
 #
 # def all_priorities():
