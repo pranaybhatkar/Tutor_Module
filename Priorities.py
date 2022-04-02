@@ -1,7 +1,7 @@
 import pandas as pd
 from sqlalchemy import create_engine
 import mysql.connector
-from sample_test import importing_data_into_db as function_1
+# from sample_test import importing_data_into_db as function_1
 
 # Here, Pandas library is imported which is required for reading the Excel file that consists the input data
 # of students through its function 'read_excel'. from sqlalchemy package, 'create_engine' function is imported in order
