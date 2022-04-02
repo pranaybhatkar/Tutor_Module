@@ -128,6 +128,6 @@ async def get_tech_stack_certifications():
     return {"Time"
             : final_time_period_as_tuple}
 
-# if __name__ == '__main__':
-#     uvicorn.run("https://morning-eyrie-65331.herokuapp.com/", host="127.0.0.1", port=8000, log_level="info")
+if __name__ == '__main__':
+    uvicorn.run("https://morning-eyrie-65331.herokuapp.com/", host="127.0.0.1", port=8000, log_level="info")
 #     uvicorn.run("example:app", host="127.0.0.1", port=8000, log_level="info")
