@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 import uvicorn
 
+
 from Priorities import CS_IT_Count, Non_CS_IT_Count, Total_count, unique_list, final_answer_as_tuple, \
     list_with_subject_count_greater_than_five, final_weightage_as_tuple, final_time_period_as_tuple
 
@@ -127,6 +128,6 @@ async def get_tech_stack_certifications():
     return {"Time"
             : final_time_period_as_tuple}
 
-if __name__ == '__main__':
-    uvicorn.run("https://morning-eyrie-65331.herokuapp.com/", host="127.0.0.1", port=8000, log_level="info")
+# if __name__ == '__main__':
+#     uvicorn.run("https://morning-eyrie-65331.herokuapp.com/", host="127.0.0.1", port=8000, log_level="info")
 #     uvicorn.run("example:app", host="127.0.0.1", port=8000, log_level="info")
