@@ -33,7 +33,7 @@ from sample_test import importing_data_into_db as function_1
 # connector.commit() # Commit statement -> to push the data into tables, so that it gets saved and can't be rolled back
 # print("Committed Successfully")
 
-connector = mysql.connector.connect(host='bncm4psrmotblosp6jbg-mysql.services.clever-cloud.com:3306', database='bncm4psrmotblosp6jbg', user='up2ocb1hrji2ux0d', password='KEuBHlyXcanciLh2Dtgz')
+connector = mysql.connector.connect(host='bncm4psrmotblosp6jbg-mysql.services.clever-cloud.com', database='bncm4psrmotblosp6jbg', user='up2ocb1hrji2ux0d', password='KEuBHlyXcanciLh2Dtgz')
 # connector = mysql.connector.connect(host='localhost', database='Test_2', user='root', password='root')
 # print(connector)
 

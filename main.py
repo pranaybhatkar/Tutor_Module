@@ -76,13 +76,13 @@ async def get_count():
 # def get_cs_it_count():
 #     # return {"The no. of students belonging to CS/IT background is": CS_IT_Count}
 #     return {"CS_IT_Count": CS_IT_Count}
-#
-#
+
+
 # @app.get("/Non_CS_IT_Count")
 # def get_non_cs_it_count():
 #     return {"The no. of students belonging to Non-CS/IT background is ": Non_CS_IT_Count}
-#
-#
+
+
 # @app.get("/Total_Count")
 # def get_total_count():
 #     return {"The total count of students is ": Total_count}
