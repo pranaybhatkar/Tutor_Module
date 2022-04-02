@@ -1,0 +1,1 @@
+web: guincorn -w 3 -k uvicorn.workers.UvicornWorker main:app 

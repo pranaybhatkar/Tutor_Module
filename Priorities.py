@@ -22,8 +22,6 @@ from sample_test import importing_data_into_db as function_1
 
 # engine = create_engine("mysql://root:root@localhost/Test_2")  # for SQL engine Creation
 # Syntax -> create_engine('database://user:password@host/database')
-# engine = create_engine("cx_Oracle://hr:hr@localhost/xe") # sqlalchemy.dialects.plugin not found -> cx_Oracle
-
 
 # df.to_sql('test_3', con=engine, if_exists='append', index=False)  # Table creation statement
 # index=False # prevents pandas to add its own index

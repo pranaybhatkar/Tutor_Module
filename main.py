@@ -4,17 +4,15 @@ from pydantic import BaseModel
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+import uvicorn
 
 from Priorities import CS_IT_Count, Non_CS_IT_Count, Total_count, unique_list, final_answer_as_tuple, \
     list_with_subject_count_greater_than_five, final_weightage_as_tuple, final_time_period_as_tuple
 
-app = FastAPI()  # an instance of the imported FastAPI.Through this instance, we can use multiple
+app = FastAPI()  # an instance of the imported FastAPI. Through this instance, we can use multiple
 # methods associated with FastAPI.
 
-list_of_usernames = []
-list_of_passwords = []
-combined_list = []
+
 templates = Jinja2Templates(directory="templates")
 
 origins = [
@@ -33,16 +31,9 @@ app.add_middleware(
 )
 
 
-# Tutors = {1:
-#               {"username": "pranay",
-#                "password": "root"
-#                }
-#           }
-
-
-class Tutor(BaseModel):
-    username: str
-    password: str
+# class Tutor(BaseModel):
+#     username: str
+#     password: str
 
 
 # @app.post("/Add_Tutor")
@@ -50,18 +41,29 @@ class Tutor(BaseModel):
 #     print(tutor_name)
 #     list_of_usernames.append(tutor_name)
 #     list_of_passwords.append(password)
-#
-#
+
 # for elements in zip(list_of_usernames, list_of_passwords):
 #     combined_list.append(elements)
-#
-#
+
 # @app.post("/Get-file")
 # async def get_file(data_file: UploadFile = File(...)):
 #     print(data_file.content_type)
 #     contents = await data_file.read()
 #     save_file(data_file.filename, contents)
 #     return {"Filename": data_file.filename}
+
+
+@app.get("/input_details")
+async def index(request: Request, response_class: HTMLResponse):
+    return templates.TemplateResponse('input_validation.html', context={"request": request})
+
+
+@app.post("/input_details")
+def index(request: Request, tutor_name: str = Form(...), password: str = Form(...)):
+    if tutor_name == 'admin' and password == 'password':
+        return templates.TemplateResponse('welcome.html', context={"request": request})
+    else:
+        return {"Error": "Invalid User, Enter Admin as user-name and 'password' as password"}
 
 
 @app.get("/Count")
@@ -89,21 +91,6 @@ async def get_count():
 # @app.get("/index")
 # def index(request: Request, response_class: HTMLResponse):
 #     return templates.TemplateResponse('welcome.html', context={"request": request})
-
-# @app.get("/input_details")
-# async def index(request: Request, response_class: HTMLResponse):
-#     return templates.TemplateResponse('input_validation.html', context={"request": request})
-
-
-@app.post("/input_details")
-def index(request: Request, tutor_name: str = Form(...), password: str = Form(...)):
-    return templates.TemplateResponse('welcome.html', context={"request": request})
-
-
-# @app.get("/Outputs")
-# def index(request: Request):
-#     return templates.TemplateResponse('index.html', context={"request": request})
-
 
 @app.get("/Tech_Stack_Certifications")
 async def get_tech_stack_certifications():
@@ -141,3 +128,5 @@ async def get_tech_stack_certifications():
             : final_time_period_as_tuple}
 
 # if __name__ == '__main__':
+#     uvicorn.run(app, host="127.0.0.1", port=8000, log_level="info")
+#     uvicorn.run("example:app", host="127.0.0.1", port=8000, log_level="info")
