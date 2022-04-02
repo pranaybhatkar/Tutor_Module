@@ -1,6 +1,6 @@
 import mysql.connector
 
-connector = mysql.connector.connect(host='localhost', database='Test_2', user='root', password='root')
+connector = mysql.connector.connect(host='bncm4psrmotblosp6jbg-mysql.services.clever-cloud.com:3306', database='bncm4psrmotblosp6jbg', user='up2ocb1hrji2ux0d', password='KEuBHlyXcanciLh2Dtgz')
 print(connector)
 
 cursor = connector.cursor()
