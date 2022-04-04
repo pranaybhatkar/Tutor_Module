@@ -94,7 +94,7 @@ tr:nth-child(even) {
             })
 
 
-     fetch('http://localhost:8000/Tech_Stack_Certifications_Known_By_Students', 
+     fetch(`${window.location.origin}/Tech_Stack_Certifications_Known_By_Students`, 
             {
                 method: "GET", 
                 // mode: 'cors',
@@ -137,7 +137,7 @@ tr:nth-child(even) {
             })
 
 
-     fetch('http://localhost:8000/Shortlisting_the_subjects', 
+     fetch(`${window.location.origin}/Shortlisting_the_subjects`, 
             {
                 method: "GET", 
                 // mode: 'cors',
@@ -180,7 +180,7 @@ tr:nth-child(even) {
             })
         
 
-     fetch('http://localhost:8000/Weightage_per_Subject', 
+     fetch(`${window.location.origin}/Weightage_per_Subject`, 
             {
                 method: "GET", 
                 // mode: 'cors',
@@ -206,7 +206,7 @@ tr:nth-child(even) {
             console.log(err);
             }) 
 
-    fetch('http://localhost:8000/Time_Period_per_Subject', 
+    fetch(`${window.location.origin}/Time_Period_per_Subject`, 
             {
                 method: "GET", 
                 // mode: 'cors',
