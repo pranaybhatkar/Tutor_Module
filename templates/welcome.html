@@ -24,6 +24,7 @@ tr:nth-child(even) {
 <body>
         <div id="chartContainer" style="height: 370px; width: 100%;"></div>
         <div id="chartContainer_1" style="height: 370px; width: 100%;"></div>
+        <div id="chartContainer_2" style="height: 370px; width: 100%;"></div>
         <br>
         <br>
         <table id='table'>
@@ -45,6 +46,51 @@ tr:nth-child(even) {
     //         }).then((data) => {
     //             console.log(data);
     //         })
+
+        fetch('http://localhost:8000/Count', 
+            {
+                method: "GET", 
+                // mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                
+                }
+            }
+        ).then(function(response) {
+            return response.json()
+        }).then(function(response) {
+            console.log(response)
+            let labels = []; 
+            let count_categories = ['CS/IT','Non-CS/IT'];
+        response.count.map((data,index) => {
+            let single_labels = {};
+            single_labels.label = count_categories[index];
+            single_labels.y = data;
+            labels.push(single_labels);
+             
+        }); 
+        console.log('Counts',labels)
+        var options = {
+        title: {
+            text: "Student Count:"
+        },
+        data: [{
+                type: "pie",
+                startAngle: 45,
+                showInLegend: "true",
+                legendText: "{label}",
+                indexLabel: "{label} ({y})",
+                yValueFormatString:"#,##0.#"%"",
+                dataPoints: labels
+        }]
+    };
+    $("#chartContainer_2").CanvasJSChart(options);
+
+
+        }).catch((err) => {
+            console.log(err)
+            })
+
 
      fetch('http://localhost:8000/Tech_Stack_Certifications_Known_By_Students', 
             {
@@ -87,6 +133,7 @@ tr:nth-child(even) {
         }).catch((err) => {
             console.log(err)
             })
+
 
      fetch('http://localhost:8000/Shortlisting_the_subjects', 
             {

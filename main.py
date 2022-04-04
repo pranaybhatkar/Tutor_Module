@@ -70,8 +70,8 @@ def index(request: Request, tutor_name: str = Form(...), password: str = Form(..
 @app.get("/Count")
 async def get_count():
     # return {"The no. of students belonging to CS/IT background is": CS_IT_Count}
-    return ["CS_IT_Count", CS_IT_Count], ["Non_CS_IT_Count", Non_CS_IT_Count], ["Total_Count", Total_count]
-
+    # return ["CS_IT_Count", CS_IT_Count], ["Non_CS_IT_Count", Non_CS_IT_Count], ["Total_Count", Total_count]
+    return {"count": [CS_IT_Count, Non_CS_IT_Count]}
 
 # @app.get("/CS_IT_Count")
 # def get_cs_it_count():
@@ -128,7 +128,7 @@ async def get_tech_stack_certifications():
     return {"Time"
             : final_time_period_as_tuple}
 
-if __name__ == '__main__':
-    uvicorn.run(app, host="127.0.0.1", port=8000, log_level="info")
+# if __name__ == '__main__':
+#     uvicorn.run(app, host="127.0.0.1", port=8000, log_level="info")
 #   uvicorn.run("https://morning-eyrie-65331.herokuapp.com/", host="127.0.0.1", port=8000, log_level="info")
 #   uvicorn.run("example:app", host="127.0.0.1", port=8000, log_level="info")
