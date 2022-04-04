@@ -54,7 +54,7 @@ app.add_middleware(
 #     return {"Filename": data_file.filename}
 
 
-@app.get("/input_details")
+@app.get("/index")
 async def index(request: Request, response_class: HTMLResponse):
     return templates.TemplateResponse('input_validation.html', context={"request": request})
 
@@ -64,7 +64,7 @@ def index(request: Request, tutor_name: str = Form(...), password: str = Form(..
     if tutor_name == 'admin' and password == 'password':
         return templates.TemplateResponse('welcome.html', context={"request": request})
     else:
-        return {"Error": "Invalid User, Enter Admin as user-name and 'password' as password"}
+        return {"Access Denied": "Enter Admin as user-name and 'password' as password"}
 
 
 @app.get("/Count")
