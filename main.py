@@ -54,7 +54,7 @@ app.add_middleware(
 #     return {"Filename": data_file.filename}
 
 
-@app.get("/index")
+@app.get("/")
 async def index(request: Request, response_class: HTMLResponse):
     return templates.TemplateResponse('input_validation.html', context={"request": request})
 

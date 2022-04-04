@@ -47,7 +47,8 @@ tr:nth-child(even) {
     //             console.log(data);
     //         })
 
-        fetch('http://127.0.0.1:8000/Count', 
+        // concole.log(window.location.origin)
+        fetch('http://localhost:8000/Count', 
             {
                 method: "GET", 
                 // mode: 'cors',
@@ -57,6 +58,7 @@ tr:nth-child(even) {
                 }
             }
         ).then(function(response) {
+            console.log('response received')
             return response.json()
         }).then(function(response) {
             console.log(response)
