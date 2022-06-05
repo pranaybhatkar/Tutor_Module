@@ -81,7 +81,7 @@ Non_CS_IT_Count = 0
 # if the desired sub-strings('Computer','Information Technology') are present in any of the strings,
 # the count of that sub-string is increased by 1. Thus, when all the records from the input data are checked,
 # we would get a specific count of students belonging to CS/IT and Non-CS/it backgrounds respectively.
-
+# AND
 for sub_lists in Graduation_Stream_List:
     for streams in sub_lists:
         if 'Computer' in streams:
