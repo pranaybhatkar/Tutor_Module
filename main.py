@@ -44,7 +44,7 @@ def index(request: Request, tutor_name: str = Form(...), password: str = Form(..
         return {"Access Denied": "Enter Admin as user-name and 'password' as password"}
 
 
-@app.post("/welcome_back")
+@app.get("/welcome_back")
 async def index(request: Request, response_class: HTMLResponse):
     return templates.TemplateResponse('welcome_back.html', context={"request": request})
 
