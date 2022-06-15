@@ -49,6 +49,10 @@ async def index(request: Request, response_class: HTMLResponse):
     return templates.TemplateResponse('welcome_back.html', context={"request": request})
 
 
+@app.get("/previous_output")
+async def index(request: Request, response_class: HTMLResponse):
+    return templates.TemplateResponse('welcome.html', context={"request": request})
+
 @app.get("/Count")
 async def get_count():
     # return {"The no. of students belonging to CS/IT background is": CS_IT_Count}
