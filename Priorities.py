@@ -47,8 +47,9 @@ cursor = connector.cursor()
 # test_list = []
 # for data in cursor:
 #     print(data)
-#     test_list.append(list(data))
+#     test_list.append(data)
 # print(test_list)
+
 
 ############################################_____PRIORITY_1_____########################################################
 
@@ -311,5 +312,20 @@ final_time_period_as_tuple = [(topic, time) for topic, time in zip(another_subje
 # print(final_time_period_as_list)
 print(
     f'The following list displays subjects and corresponding time alloted to each subject:\n{final_time_period_as_tuple}')
+
+
+############################################_____PRIORITY_5_____########################################################
+
+# For displaying individual records of a student, following logic is written.
+
+cursor.execute("Select * from test_3")
+individual_student_data = []
+
+for data in cursor:
+    individual_student_data.append(data)
+
+# print(individual_student_data)
+
+
 
 ########################################################################################################################

@@ -8,7 +8,8 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 import uvicorn
 
 from Priorities import CS_IT_Count, Non_CS_IT_Count, Total_count, unique_list, final_answer_as_tuple, \
-    list_with_subject_count_greater_than_five, final_weightage_as_tuple, final_time_period_as_tuple
+    list_with_subject_count_greater_than_five, final_weightage_as_tuple, final_time_period_as_tuple, \
+    individual_student_data
 
 app = FastAPI()  # an instance of the imported FastAPI. Through this instance, we can use multiple
 # methods associated with FastAPI.
@@ -31,6 +32,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
 #
 # users_db = {
 #     "pranay": {
@@ -119,6 +122,14 @@ def index(request: Request, tutor_name: str = Form(...), password: str = Form(..
         return templates.TemplateResponse('welcome.html', context={"request": request})
     else:
         return {"Access Denied": "Enter Admin as user-name and 'password' as password"}
+
+
+# @app.post("/output_selection")
+# def selection(request:Request, individual_details: str = Form(...), batch_details: str = Form(...)):
+#     if individual_details:
+#         return templates.TemplateResponse('', context={"request": request})
+#     else:
+#         return templates.TemplateResponse('welcome.html', context={"request": request})
 
 
 @app.get("/output")
