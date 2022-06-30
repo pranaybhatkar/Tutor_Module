@@ -131,6 +131,16 @@ def index(request: Request, tutor_name: str = Form(...), password: str = Form(..
 #     else:
 #         return templates.TemplateResponse('welcome.html', context={"request": request})
 
+#
+# @app.get("/individual_student_records")
+# def individual_records(request:Request, individual_username: str = Form(...), birthdate: str = Form(...)):
+#     for student_records in individual_student_data:
+#         for details in student_records:
+#             if individual_username and birthdate in details:
+#                 return templates.TemplateResponse('individual_student_records.html', context={"request": request})
+#             else:
+#                 return {"Error 404": "Student Details not found"}
+
 
 @app.get("/output")
 async def index(request: Request, response_class: HTMLResponse):
