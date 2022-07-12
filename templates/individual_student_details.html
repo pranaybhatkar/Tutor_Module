@@ -26,7 +26,7 @@ button{
 </style>
 </head>
 <body>
-        <div id="chartContainer_2" style="height: 370px; width: 100%;"></div>   
+        <div id="chartContainer_3" style="height: 370px; width: 100%;"></div>   
         <div id="chartContainer" style="height: 370px; width: 100%;"></div>
         <!-- <div id="chartContainer_1" style="height: 370px; width: 100%;"></div> -->
         <br>
@@ -52,53 +52,10 @@ button{
     //         })
 
         // concole.log(window.location.origin)
-        fetch(`${window.location.origin}/Count`, 
-            {
-                method: "GET", 
-                // mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                
-                }
-            }
-        ).then(function(response) {
-            console.log('response received')
-            return response.json()
-        }).then(function(response) {
-            console.log(response)
-            let labels = []; 
-            let count_categories = ['CS/IT','Non-CS/IT'];
-        response.count.map((data,index) => {
-            let single_labels = {};
-            single_labels.label = count_categories[index];
-            single_labels.y = data;
-            labels.push(single_labels);
-             
-        }); 
-        console.log('Counts',labels)
-        var options = {
-        title: {
-            text: "Student Count:"
-        },
-        data: [{
-                type: "pie",
-                startAngle: 45,
-                showInLegend: "true",
-                legendText: "{label}",
-                indexLabel: "{label} ({y})",
-                yValueFormatString:"#,##0.#"%"",
-                dataPoints: labels
-        }]
-    };
-    $("#chartContainer_2").CanvasJSChart(options);
 
 
-        }).catch((err) => {
-            console.log(err)
-            })
 
-
-     fetch(`${window.location.origin}/Tech_Stack_Certifications_Known_By_Students`, 
+     fetch(`${window.location.origin}/individual_student_records`, 
             {
                 method: "GET", 
                 // mode: 'cors',
@@ -121,7 +78,7 @@ button{
         console.log(labels)
         var options = {
         title: {
-            text: "Tech-Stack and Number of students:"
+            text: "Individual Student Records"
         },
         data: [{
                 type: "pie",
@@ -147,10 +104,7 @@ button{
 
 
 </script>>
-<form action="/output" method="GET">
-    <button type="submit">Next</button>
-</form>
-<form action="/" method="GET">
+<form action="/individual_entry" method="GET">
     <button type="submit">Previous</button>
 </form>
 </body>

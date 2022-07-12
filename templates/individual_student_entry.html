@@ -10,23 +10,24 @@
 	<h1>Management System for Tutors</h1>
     <br>
     <h2>Please Enter Input Credentials:</h2>
-    <form action="/input_details" method="POST">
+    <form action="/individual_student_records" method="POST">
         <label>
             Please enter Username:
-            <input type="text" name="tutor_name" minlength="3" placeholder="Enter Username" required>
+            <input type="text" name="individual_username" minlength="3" placeholder="Enter Full Username" required>
         </label>
     <br>
         <label>Please enter Password:
-        <input type="password" name="password" placeholder="Enter Password" required></label>
+        <input type="password" name="birthdate" placeholder="Enter Birthdate as Password" required></label>
     <br>
         <button type="submit">Submit</button> 
         <button type="reset">Reset</button>
 
     </form>
-    <!-- <script type="text/javascript" src="./main.js"></script> -->
+    <form action="/selection_page" method="GET">
+    <button type="submit">Previous</button>
+    </form>
 </body>
 </html>
-
 
 
 

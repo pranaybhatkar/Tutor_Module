@@ -5,7 +5,8 @@ from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-import uvicorn
+import sqlalchemy
+import databases
 
 from Priorities import CS_IT_Count, Non_CS_IT_Count, Total_count, unique_list, final_answer_as_tuple, \
     list_with_subject_count_greater_than_five, final_weightage_as_tuple, final_time_period_as_tuple, \
@@ -53,9 +54,18 @@ app.add_middleware(
 #     return "fakehashed" + password
 #
 #
-# class User(BaseModel):
-#     username: str
-#     disabled: Union[bool, None] = None
+class Admin(BaseModel):
+    username: str
+    password: str
+
+
+class UserType(BaseModel):
+    tutor: str
+    student: str
+    username: Union[str, None] = None
+    birthdate: Union[str, None] = None
+
+
 #
 #
 # class UserInDB(User):
@@ -119,37 +129,56 @@ async def index(request: Request, response_class: HTMLResponse):
 @app.post("/input_details")
 def index(request: Request, tutor_name: str = Form(...), password: str = Form(...)):
     if tutor_name == 'admin' and password == 'password':
-        return templates.TemplateResponse('welcome.html', context={"request": request})
+        # return templates.TemplateResponse('batch_details_one.html', context={"request": request})
+        return templates.TemplateResponse('output_selection.html', context={"request": request})
     else:
         return {"Access Denied": "Enter Admin as user-name and 'password' as password"}
 
 
+# @app.post("/admin_login")
+# async def check_admin(admin: Admin):
+#     return admin
+
+# @app.post("/user_type")
+# async def return_user_type(user_type: UserType):
+#     return user_type
+
 # @app.post("/output_selection")
 # def selection(request:Request, individual_details: str = Form(...), batch_details: str = Form(...)):
 #     if individual_details:
-#         return templates.TemplateResponse('', context={"request": request})
+#         return templates.TemplateResponse('individual_student_entry.html', context={"request": request})
 #     else:
-#         return templates.TemplateResponse('welcome.html', context={"request": request})
+#         return templates.TemplateResponse('batch_details_one.html', context={"request": request})
 
 #
 # @app.get("/individual_student_records")
 # def individual_records(request:Request, individual_username: str = Form(...), birthdate: str = Form(...)):
 #     for student_records in individual_student_data:
-#         for details in student_records:
+#         for details in student_records: # try to get the output by commenting this line
 #             if individual_username and birthdate in details:
-#                 return templates.TemplateResponse('individual_student_records.html', context={"request": request})
+#                 return templates.TemplateResponse('individual_student_details.html', context={"request": request})
 #             else:
 #                 return {"Error 404": "Student Details not found"}
 
 
 @app.get("/output")
 async def index(request: Request, response_class: HTMLResponse):
-    return templates.TemplateResponse('welcome_back.html', context={"request": request})
+    return templates.TemplateResponse('batch_details_two.html', context={"request": request})
 
 
 @app.get("/previous_output")
 async def index(request: Request, response_class: HTMLResponse):
-    return templates.TemplateResponse('welcome.html', context={"request": request})
+    return templates.TemplateResponse('batch_details_one.html', context={"request": request})
+
+
+@app.get("/selection_page")
+async def index(request: Request, response_class: HTMLResponse):
+    return templates.TemplateResponse('output_selection.html', context={"request": request})
+
+
+@app.get("/individual_entry")
+async def index(request: Request, response_class: HTMLResponse):
+    return templates.TemplateResponse('individual_student_entry.html', context={"request": request})
 
 
 @app.get("/Count")

@@ -9,12 +9,16 @@
 <body>
 	<h1>Management System for Tutors</h1>
     <br>
-    <h2>A Platform representing a basic approach to tutoring in a modernized, student centric way. Main objectives include Syllabus designing based on the count/adaptability of the students enrolled, calculating Topic weightage, Time required per topic, displaying individual student records.</h2>
+    <h2>A Platform representing a basic approach to tutoring in a modernized, student centric way.<br> 
+    Main objectives include Syllabus designing based on the count/adaptability of the students enrolled,<br>
+    calculating Topic-wise weightage, Time required per topic, displaying individual student records.</h2>
+    <br>
     <form action="/output_selection" method="POST">
         <label>
         Please select the desired option:
-        <input type="radio" name="individual_details"> Individual Student Details <br>  
-        <input type="radio" name="batch_details"> Batch Details <br>
+        <br>
+        <input type="radio" name="individual_details" required> Individual Student Details <br>  
+        <input type="radio" name="batch_details" required> Batch Details <br>
         </label>
         <br>
         <button type="submit">Submit</button> 
@@ -22,7 +26,9 @@
 
 
     </form>
-    <!-- <script type="text/javascript" src="./main.js"></script> -->
+    <form action="/" method="GET">
+    <button type="submit">Previous</button>
+    </form>
 </body>
 </html>
 
