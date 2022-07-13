@@ -5,8 +5,6 @@ from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-import sqlalchemy
-import databases
 
 from Priorities import CS_IT_Count, Non_CS_IT_Count, Total_count, unique_list, final_answer_as_tuple, \
     list_with_subject_count_greater_than_five, final_weightage_as_tuple, final_time_period_as_tuple, \
@@ -14,6 +12,9 @@ from Priorities import CS_IT_Count, Non_CS_IT_Count, Total_count, unique_list, f
 
 app = FastAPI()  # an instance of the imported FastAPI. Through this instance, we can use multiple
 # methods associated with FastAPI.
+
+# config = context.config
+# fileConfig(config.config_file_name)
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
@@ -54,18 +55,16 @@ app.add_middleware(
 #     return "fakehashed" + password
 #
 #
-class Admin(BaseModel):
-    username: str
-    password: str
-
-
-class UserType(BaseModel):
-    tutor: str
-    student: str
-    username: Union[str, None] = None
-    birthdate: Union[str, None] = None
-
-
+# class Admin(BaseModel):
+#     username: str
+#     password: str
+#
+#
+# class UserType(BaseModel):
+#     tutor: str
+#     student: str
+#     username: Union[str, None] = None
+#     birthdate: Union[str, None] = None
 #
 #
 # class UserInDB(User):
