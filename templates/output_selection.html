@@ -17,25 +17,14 @@
         <label>
         Please select the desired option:
         <br>
-        <input type="radio" name="individual_details" value = "/output_selection"> Individual Student Details <br>  
-        <input type="radio" name="batch_details" value = "/output_selection"> Batch Details <br>
+        <input type="radio" name="individual_details"> Individual Student Details <br>  
+        <input type="radio" name="batch_details"> Batch Details <br>
         </label>
         <br>
-        <button type="submit" onclick="jsubmit();">Submit</button> 
+        <button type="submit">Submit</button> 
         <button type="reset">Reset</button>
 
-    <script>
-                function jsubmit(){
-            var radio = document.getElementsByName('op1');
-            for(i=0;i<radio.length;i++)
-            {
-                if(radio[i].checked){
-                window.location.href = radio[i].value;
-                }
-            }
-        }
-    </script>
-  
+
     </form>
     <form action="/" method="GET">
     <button type="submit">Previous</button>
