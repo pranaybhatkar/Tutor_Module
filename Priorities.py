@@ -322,7 +322,7 @@ cursor.execute("Select * from test_3")
 individual_student_data = []
 
 for data in cursor:
-    individual_student_data.append(data)
+    individual_student_data.append(list(data))
 
 # print(individual_student_data)
 
