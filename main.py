@@ -51,7 +51,7 @@ def index(request: Request, tutor_name: str = Form(...), password: str = Form(..
 def selection(request: Request, individual_details: str = Form(...), batch_details: str = Form(...)):
     if individual_details:
         return templates.TemplateResponse('individual_student_entry.html', context={"request": request})
-    else:
+    elif batch_details:
         return templates.TemplateResponse('batch_details_one.html', context={"request": request})
 
 
