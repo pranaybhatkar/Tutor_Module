@@ -17,11 +17,11 @@
         </label>
     <br>
         <label>Password:
-        <input type="password" name="birthdate" placeholder="Enter Birthdate as Password" required></label>
+        <input type="password" name="birthdate" placeholder="Enter Password" required></label>
     <br>
         <button type="submit">Submit</button> 
         <button type="reset">Reset</button>
-    <table id='table_1'>
+    <table id='table_3'>
         </table>
  
     </form>
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>  
     <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
 
-    <script>
+<script>
         window.onload = function() {
     const url = 'http://localhost:8000/'
 
@@ -56,14 +56,14 @@
         ).then(function(response) {
             return response.json()
         }).then(function(response) {
-            console.log(response.weightage)
+            console.log(response.details)
             let row = '<tr><th>Sr.no</th><th>Name</th><th>DateofBirth</th><th>Graduation_Stream</th><th>Institute/University</th><th>Post_Graduation</th><th>Institute/University</th><th>Tech_Stack</th></tr>'
-            response.weightage.map((data) => {
+            response.details.map((data) => {
                 row += `<tr><td>${data[0]}</td><td>${data[1]}</td><td>${data[2]}</td><td>${data[3]}</td><td>${data[4]}</td><td>${data[5]}</td><td>${data[6]}</td><td>${data[7]}</td></tr>`
                 console.log(row);
             
             })  
-                document.getElementById('table_1').innerHTML = row
+                document.getElementById('table_3').innerHTML = row
                 // element.innerHTML(row)
 
         }).catch((err) => {
@@ -76,6 +76,9 @@
 
 
 </script>>
+
+
+
     <form action="/selection_page" method="GET">
     <button type="submit">Previous</button>
     </form>

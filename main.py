@@ -64,7 +64,6 @@ def check_student(request: Request, individual_username: str = Form(...), birthd
                 continue
 
 
-
 @app.api_route("/individual_student_records", methods=["GET", "POST"])
 def individual_records(request: Request, individual_username: str = Form(...), birthdate: str = Form(...),
                        student: dict = Depends(check_student)):
