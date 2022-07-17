@@ -33,10 +33,10 @@ app.add_middleware(
 )
 
 
-# @app.get("/")
-# async def index(request: Request, response_class: HTMLResponse):
-#     return templates.TemplateResponse('input_validation.html', context={"request": request})
-
+@app.get("/")
+async def index(request: Request, response_class: HTMLResponse):
+    # return templates.TemplateResponse('input_validation.html', context={"request": request})
+    return templates.TemplateResponse('index.html', context={"request": request})
 
 # @app.post("/token")
 # async def token(form_data: OAuth2PasswordRequestForm = Depends()):
