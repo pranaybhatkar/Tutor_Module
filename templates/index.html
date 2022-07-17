@@ -1,48 +1,30 @@
 
-<html>
+<html lang="en">
 <head>
-	<title>Tutor_Module</title>
-	<meta http-equiv="Access-Control-Allow-Origin" content="*" />
-	<style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor_Module</title>
 </head>
 <body>
-		<div id="chartContainer" style="height: 370px; width: 100%;"></div>
-		<div id="chartContainer_1" style="height: 370px; width: 100%;"></div>
-		<div id="chartContainer_2" style="height: 370px; width: 100%;"></div>
-		<br>
-		<br>
-		<table id='table'>
-  		</table>
-  		<br>
-  		<table id='table_1'>
-  		</table>
+	<h1>Management System for Tutors</h1>
+    <br>
+    <h2>Please Enter Input Credentials:</h2>
+    <form action="/input_details" method="POST">
+        <label>
+            Please enter Username:
+            <input type="text" name="tutor_name" minlength="3" placeholder="Enter Username" required>
+        </label>
+    <br>
+        <label>Please enter Password:
+        <input type="password" name="password" placeholder="Enter Password" required></label>
+    <br>
+        <button type="submit">Submit</button> 
+        <button type="reset">Reset</button>
 
-
-<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>  
-<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
-
-<!-- <script type="text/javascript" src="./main.js"></script> -->
-
-
-	
+    </form>
+    <!-- <script type="text/javascript" src="./main.js"></script> -->
 </body>
-
 </html>
 
 
