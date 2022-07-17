@@ -33,9 +33,20 @@ app.add_middleware(
 )
 
 
-@app.get("/")
-async def index(request: Request, response_class: HTMLResponse):
-    return templates.TemplateResponse('input_validation.html', context={"request": request})
+# @app.get("/")
+# async def index(request: Request, response_class: HTMLResponse):
+#     return templates.TemplateResponse('input_validation.html', context={"request": request})
+
+
+# @app.post("/token")
+# async def token(form_data: OAuth2PasswordRequestForm = Depends()):
+#     return {"access_token": form_data.username + "token"}
+
+
+# @app.api_route("/input_details", methods=["GET", "POST"])
+# async def index(token: str = Depends(oauth2_scheme)):
+#     if token:
+#         return templates.TemplateResponse('output_selection.html', context={"request": request})
 
 
 @app.post("/input_details")
@@ -44,24 +55,25 @@ def index(request: Request, tutor_name: str = Form(...), password: str = Form(..
         # return templates.TemplateResponse('batch_details_one.html', context={"request": request})
         return templates.TemplateResponse('output_selection.html', context={"request": request})
     else:
-        return {"Access Denied": "Enter Admin as user-name and 'password' as password"}
+        # return {"Access Denied": "Enter Admin as user-name and 'password' as password"}
+        raise HTTPException(status_code=400, detail="Incorrect username or password")
 
 
 @app.post("/output_selection")
-def selection(request: Request, individual_details: str = Form(...), batch_details: str = Form(...)):
-    if individual_details:
+def selection(request: Request, individual_details: Union[str, None] = None, batch_details: Union[str, None] = None):
+    if individual_details is not None:
         return templates.TemplateResponse('individual_student_entry.html', context={"request": request})
-    elif batch_details:
+    elif batch_details is not None:
         return templates.TemplateResponse('batch_details_one.html', context={"request": request})
 
 
 def check_student(request: Request, individual_username: str = Form(...), birthdate: str = Form(...)):
     for student_records in individual_student_data:
-        for details in student_records:  # try to get the output by commenting this line
-            if individual_username and birthdate in student_records:
-                return student_records
-            else:
-                continue
+        # for details in student_records:  # try to get the output by commenting this line
+        if individual_username and birthdate in student_records:
+            return student_records
+        else:
+            continue
 
 
 @app.api_route("/individual_student_records", methods=["GET", "POST"])
@@ -74,7 +86,8 @@ def individual_records(request: Request, individual_username: str = Form(...), b
     #         continue
 
     if student:
-        return {"details": student}
+        return {"details"
+                : student}
     else:
         return {"Error 404": "Student Details not found"}
 
