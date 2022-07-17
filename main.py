@@ -38,6 +38,7 @@ async def index(request: Request, response_class: HTMLResponse):
     # return templates.TemplateResponse('input_validation.html', context={"request": request})
     return templates.TemplateResponse('index.html', context={"request": request})
 
+
 # @app.post("/token")
 # async def token(form_data: OAuth2PasswordRequestForm = Depends()):
 #     return {"access_token": form_data.username + "token"}
@@ -59,11 +60,18 @@ def index(request: Request, tutor_name: str = Form(...), password: str = Form(..
         raise HTTPException(status_code=400, detail="Incorrect username or password")
 
 
+# @app.post("/output_selection")
+# def selection(request: Request, individual_details: str = Form(), batch_details: str = Form()):
+#     if individual_details:
+#         return templates.TemplateResponse('individual_student_entry.html', context={"request": request})
+#     elif batch_details:
+#         return templates.TemplateResponse('batch_details_one.html', context={"request": request})
+
 @app.post("/output_selection")
-def selection(request: Request, individual_details: Union[str, None] = None, batch_details: Union[str, None] = None):
-    if individual_details is not None:
+def selection(request: Request, details: str = Form(...)):
+    if details == "individual":
         return templates.TemplateResponse('individual_student_entry.html', context={"request": request})
-    elif batch_details is not None:
+    else:
         return templates.TemplateResponse('batch_details_one.html', context={"request": request})
 
 
