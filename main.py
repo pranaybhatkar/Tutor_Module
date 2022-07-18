@@ -46,7 +46,7 @@ async def received_data(form_data: OAuth2PasswordRequestForm = Depends()):
 
 @app.post("/input_details")
 async def index(request: Request, token: str = Depends(oauth2_scheme)):
-    if "access_token" in token:
+    if token:
         return templates.TemplateResponse('output_selection.html', context={"request": request})
     else:
         raise HTTPException(status_code=400, detail="Incorrect username or password")
