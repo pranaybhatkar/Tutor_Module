@@ -39,33 +39,27 @@ async def index(request: Request, response_class: HTMLResponse):
     return templates.TemplateResponse('index.html', context={"request": request})
 
 
-# @app.post("/token")
-# async def token(form_data: OAuth2PasswordRequestForm = Depends()):
-#     return {"access_token": form_data.username + "token"}
-
-
-# @app.api_route("/input_details", methods=["GET", "POST"])
-# async def index(token: str = Depends(oauth2_scheme)):
-#     if token:
-#         return templates.TemplateResponse('output_selection.html', context={"request": request})
+@app.post("/token")
+async def received_data(form_data: OAuth2PasswordRequestForm = Depends()):
+    return {"access_token": form_data.username + "token"}
 
 
 @app.post("/input_details")
-def index(request: Request, tutor_name: str = Form(...), password: str = Form(...)):
-    if tutor_name == 'admin' and password == 'password':
-        # return templates.TemplateResponse('batch_details_one.html', context={"request": request})
+async def index(request: Request, token: str = Depends(oauth2_scheme)):
+    if "access_token" in token:
         return templates.TemplateResponse('output_selection.html', context={"request": request})
     else:
-        # return {"Access Denied": "Enter Admin as user-name and 'password' as password"}
         raise HTTPException(status_code=400, detail="Incorrect username or password")
 
+# @app.post("/input_details")
+# def index(request: Request, username: str = Form(...), password: str = Form(...)):
+#     if username == 'admin' and password == 'password':
+#         # return templates.TemplateResponse('batch_details_one.html', context={"request": request})
+#         return templates.TemplateResponse('output_selection.html', context={"request": request})
+#     else:
+#         # return {"Access Denied": "Enter Admin as user-name and 'password' as password"}
+#         raise HTTPException(status_code=400, detail="Incorrect username or password")
 
-# @app.post("/output_selection")
-# def selection(request: Request, individual_details: str = Form(), batch_details: str = Form()):
-#     if individual_details:
-#         return templates.TemplateResponse('individual_student_entry.html', context={"request": request})
-#     elif batch_details:
-#         return templates.TemplateResponse('batch_details_one.html', context={"request": request})
 
 @app.post("/output_selection")
 def selection(request: Request, details: str = Form(...)):
