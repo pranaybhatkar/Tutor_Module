@@ -10,8 +10,28 @@ from Priorities import CS_IT_Count, Non_CS_IT_Count, Total_count, unique_list, f
     list_with_subject_count_greater_than_five, final_weightage_as_tuple, final_time_period_as_tuple, \
     individual_student_data
 
+fake_users_db = {
+    "manav": {
+        "username": "manav bharatiya",
+        "hashed_password": "fakehashed21021997",
+        "disabled": False,
+    },
+    "pranay": {
+        "username": "pranay bhatkar",
+        "hashed_password": "fakehashed26031994",
+        "disabled": True,
+    },
+}
+
 app = FastAPI()  # an instance of the imported FastAPI. Through this instance, we can use multiple
+
+
 # methods associated with FastAPI.
+
+
+def fake_hash_password(password: str):
+    return "fake-hashed" + password
+
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
@@ -33,23 +53,83 @@ app.add_middleware(
 )
 
 
+class User(BaseModel):
+    username: str
+    disabled: Union[bool, None] = None
+
+
+class UserInDB(User):
+    hashed_password: str
+
+
 @app.get("/")
 async def index(request: Request, response_class: HTMLResponse):
     # return templates.TemplateResponse('input_validation.html', context={"request": request})
     return templates.TemplateResponse('index.html', context={"request": request})
 
 
+def get_user(db, username: str):
+    if username in db:
+        user_dict = db[username]
+        return UserInDB(**user_dict)
+
+
+def fake_decode_token(token):
+    user = get_user(fake_users_db, token)
+    return user
+
+
+async def get_current_user(token: str = Depends(oauth2_scheme)):
+    user = fake_decode_token(token)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid authentication credentials",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    return user
+
+
+async def get_current_active_user(current_user: User = Depends(get_current_user)):
+    if current_user.disabled:
+        raise HTTPException(status_code=400, detail="Inactive user")
+    return current_user
+
+
 @app.post("/token")
-async def received_data(form_data: OAuth2PasswordRequestForm = Depends()):
-    return {"access_token": form_data.username + "token"}
+async def login(request: Request, username: str = Form(...), password: str = Form(...)):
+    user_dict = fake_users_db.get(username)
+    if not user_dict:
+        raise HTTPException(status_code=400, detail="Incorrect username or password")
+    user = UserInDB(**user_dict)
+    hashed_password = fake_hash_password(password)
+    if not hashed_password == user.hashed_password:
+        raise HTTPException(status_code=400, detail="Incorrect username or password")
+
+    return {"access_token": user.username, "token_type": "bearer"}
 
 
-@app.post("/input_details")
-async def index(request: Request, token: str = Depends(oauth2_scheme)):
-    if "access_token" in token:
+@app.get("/input_details")
+async def read_users_me(request: Request, username: str = Form(...), password: str = Form(...),
+                        current_user: User = Depends(get_current_active_user)):
+    if current_user:
         return templates.TemplateResponse('output_selection.html', context={"request": request})
     else:
         raise HTTPException(status_code=400, detail="Incorrect username or password")
+
+
+# @app.post("/token")
+# async def received_data(form_data: OAuth2PasswordRequestForm = Depends()):
+#     return {"access_token": form_data.username + "token"}
+
+
+# @app.post("/input_details")
+# async def index(request: Request, token: str = Depends(oauth2_scheme)):
+#     if "access_token" in token:
+#         return templates.TemplateResponse('output_selection.html', context={"request": request})
+#     else:
+#         raise HTTPException(status_code=400, detail="Incorrect username or password")
+
 
 # @app.post("/input_details")
 # def index(request: Request, username: str = Form(...), password: str = Form(...)):
