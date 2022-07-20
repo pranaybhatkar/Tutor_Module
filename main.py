@@ -171,6 +171,7 @@ def check_student():
             continue
 
 
+
 # @app.api_route("/individual_student_records", methods=["GET", "POST"])
 @app.post("/individual_student_records")
 def individual_records(request: Request, individual_username: str = Form(...), birthdate: str = Form(...),
