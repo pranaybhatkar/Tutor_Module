@@ -73,12 +73,13 @@ button{
             text: "Shortlisted Subjects:"
         },
         data: [{
-                type: "pie",
-                startAngle: 45,
+                type: "doughnut",
+                innerRadius: "40%",
+                // startAngle: 45,
                 showInLegend: "true",
                 legendText: "{label}",
                 indexLabel: "{label} ({y})",
-                yValueFormatString:"#,##0.#"%"",
+                // yValueFormatString:"#,##0.#"%"",
                 dataPoints: labels
         }]
     };
