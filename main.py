@@ -170,10 +170,9 @@ def individual_records(request: Request, individual_username: str = Form(...), b
     #         continue
 
     if student:
-        return {"details"
-                : student}
+        return templates.TemplateResponse('individual_student_details.html', context={"details": student})
     else:
-        return {"Error 404": "Student Details not found"}
+        raise HTTPException(status_code=400, detail="Incorrect username or password")
 
 
 @app.get("/output")
