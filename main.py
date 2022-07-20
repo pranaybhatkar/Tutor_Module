@@ -153,6 +153,25 @@ def selection(request: Request, details: str = Form(...)):
 test = []
 
 
+@app.post("/individual_student_records")
+def individual_records(request: Request, individual_username: str = Form(...), birthdate: str = Form(...)):
+    for student_records in individual_student_data:
+        if individual_username and birthdate in student_records:
+            test.append(individual_username)
+            test.append(birthdate)
+            return templates.TemplateResponse('individual_student_details.html', context={"request": request})
+            # return {"details": student}
+        else:
+            # continue
+            raise HTTPException(status_code=400, detail="Incorrect username or password")
+
+    # if student:
+    #     # return {"details": student}
+    #     return templates.TemplateResponse('individual_student_details.html', context={"request": request})
+    # else:
+    #     raise HTTPException(status_code=400, detail="Incorrect username or password")
+
+
 # @app.get("/individual_student_details")
 # def check_student(request: Request, individual_username: str = Form(...), birthdate: str = Form(...)):
 #     for student_records in individual_student_data:
@@ -171,26 +190,7 @@ def check_student():
             continue
 
 
-
 # @app.api_route("/individual_student_records", methods=["GET", "POST"])
-@app.post("/individual_student_records")
-def individual_records(request: Request, individual_username: str = Form(...), birthdate: str = Form(...),
-                       student: dict = Depends(check_student)):
-    for student_records in individual_student_data:
-        if individual_username and birthdate in student_records:
-            test.append(individual_username)
-            test.append(birthdate)
-            return templates.TemplateResponse('individual_student_details.html', context={"request": request})
-            # return {"details": student}
-        else:
-            # continue
-            raise HTTPException(status_code=400, detail="Incorrect username or password")
-
-    # if student:
-    #     # return {"details": student}
-    #     return templates.TemplateResponse('individual_student_details.html', context={"request": request})
-    # else:
-    #     raise HTTPException(status_code=400, detail="Incorrect username or password")
 
 
 @app.get("/output")
