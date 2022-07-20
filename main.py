@@ -10,7 +10,6 @@ from Priorities import CS_IT_Count, Non_CS_IT_Count, Total_count, unique_list, f
     list_with_subject_count_greater_than_five, final_weightage_as_tuple, final_time_period_as_tuple, \
     individual_student_data
 
-
 app = FastAPI()  # an instance of the imported FastAPI. Through this instance, we can use multiple
 
 # methods associated with FastAPI.
@@ -151,29 +150,46 @@ def selection(request: Request, details: str = Form(...)):
         return templates.TemplateResponse('batch_details_one.html', context={"request": request})
 
 
-def check_student(request: Request, individual_username: str = Form(...), birthdate: str = Form(...)):
+test = []
+
+
+# @app.get("/individual_student_details")
+# def check_student(request: Request, individual_username: str = Form(...), birthdate: str = Form(...)):
+#     for student_records in individual_student_data:
+#         # for details in student_records:  # try to get the output by commenting this line
+#         if individual_username and birthdate in student_records:
+#             return student_records
+#         else:
+#             continue
+
+@app.get("/individual_student_details")
+def check_student():
     for student_records in individual_student_data:
-        # for details in student_records:  # try to get the output by commenting this line
-        if individual_username and birthdate in student_records:
+        if test[0] and test[1] in student_records:
             return student_records
         else:
             continue
 
 
-@app.api_route("/individual_student_records", methods=["GET", "POST"])
+# @app.api_route("/individual_student_records", methods=["GET", "POST"])
+@app.post("/individual_student_records")
 def individual_records(request: Request, individual_username: str = Form(...), birthdate: str = Form(...),
                        student: dict = Depends(check_student)):
-    # for student_records in individual_student_data:
-    #     if individual_username and birthdate in student_records:
-    #         return {"details": student}
-    #     else:
-    #         continue
+    for student_records in individual_student_data:
+        if individual_username and birthdate in student_records:
+            test.append(individual_username)
+            test.append(birthdate)
+            return templates.TemplateResponse('individual_student_details.html', context={"request": request})
+            # return {"details": student}
+        else:
+            # continue
+            raise HTTPException(status_code=400, detail="Incorrect username or password")
 
-    if student:
-        # return {"details": student}
-        return templates.TemplateResponse('individual_student_details.html', context={"request": request})
-    else:
-        raise HTTPException(status_code=400, detail="Incorrect username or password")
+    # if student:
+    #     # return {"details": student}
+    #     return templates.TemplateResponse('individual_student_details.html', context={"request": request})
+    # else:
+    #     raise HTTPException(status_code=400, detail="Incorrect username or password")
 
 
 @app.get("/output")
