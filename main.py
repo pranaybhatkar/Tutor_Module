@@ -166,8 +166,8 @@ def individual_records(request: Request, individual_username: str = Form(...), b
             return templates.TemplateResponse('individual_student_details.html', context={"request": request})
             # return {"details": student}
         else:
-            # continue
-            raise HTTPException(status_code=400, detail="Incorrect username or password")
+            continue
+            # raise HTTPException(status_code=400, detail="Incorrect username or password")
 
     # if student:
     #     # return {"details": student}
