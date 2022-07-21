@@ -151,14 +151,18 @@ def selection(request: Request, details: str = Form(...)):
 
 
 test = []
+students = []
 
 
 @app.post("/individual_student_records")
 def individual_records(request: Request, individual_username: str = Form(...), birthdate: str = Form(...)):
     for student_records in individual_student_data:
+        if individual_username and birthdate in students:
+            return templates.TemplateResponse('individual_student_details.html', context={"request": request})
         if individual_username and birthdate in student_records:
             test.append(individual_username)
             test.append(birthdate)
+            students.extend(test)
             return templates.TemplateResponse('individual_student_details.html', context={"request": request})
             # return {"details": student}
         else:
@@ -184,10 +188,11 @@ def individual_records(request: Request, individual_username: str = Form(...), b
 @app.get("/individual_student_details")
 def check_student():
     for student_records in individual_student_data:
-        if test[0] and test[1] in student_records:
-            return student_records
-        else:
-            continue
+        for each_list in students:
+            if each_list[0] and each_list[1] in student_records:
+                return student_records
+            else:
+                continue
 
 
 # @app.api_route("/individual_student_records", methods=["GET", "POST"])
