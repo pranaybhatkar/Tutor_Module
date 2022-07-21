@@ -157,8 +157,8 @@ students = []
 @app.post("/individual_student_records")
 def individual_records(request: Request, individual_username: str = Form(...), birthdate: str = Form(...)):
     for student_records in individual_student_data:
-        if individual_username and birthdate in students:
-            return templates.TemplateResponse('individual_student_details.html', context={"request": request})
+        # if individual_username and birthdate in students:
+        #     return templates.TemplateResponse('individual_student_details.html', context={"request": request})
         if individual_username and birthdate in student_records:
             test.append(individual_username)
             test.append(birthdate)
