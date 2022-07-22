@@ -49,38 +49,38 @@ button{
 
 
  
-    //      fetch(`${window.location.origin}/individual_student_details`, 
-    //         {
-    //             method: "GET", 
-    //             // mode: 'cors',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
+         fetch(`${window.location.origin}/individual_student_details`, 
+            {
+                method: "GET", 
+                // mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
                 
-    //             }
-    //         }
-    //     ).then(function(response) {
-    //         return response.json()
-    //     }).then(function(response) {
-    //         console.log(response.details)
-    //         let row = '<tr><th>Sr.no</th><th>Name</th><th>DateofBirth</th><th>Graduation_Stream</th><th>Institute/University</th><th>Post_Graduation</th><th>Institute/University</th><th>Tech_Stack</th></tr>'
-    //         response.details.map((data) => {
-    //             row += `<tr><td>${data[0]}</td><td>${data[1]}</td><td>${data[2]}</td><td>${data[3]}</td><td>${data[4]}</td><td>${data[5]}</td><td>${data[6]}</td><td>${data[7]}</td></tr>`
-    //             console.log(row);
+                }
+            }
+        ).then(function(response) {
+            return response.json()
+        }).then(function(response) {
+            console.log(response)
+            let row = '<tr><th>Sr.no</th><th>Name</th><th>DateofBirth</th><th>Graduation_Stream</th><th>Institute/University</th><th>Post_Graduation</th><th>Institute/University</th><th>Tech_Stack</th></tr>'
+            response.details.map((data) => {
+                row += `<tr><td>${data[0]}</td><td>${data[1]}</td><td>${data[2]}</td><td>${data[3]}</td><td>${data[4]}</td><td>${data[5]}</td><td>${data[6]}</td><td>${data[7]}</td></tr>`
+                console.log(row);
             
-    //         })  
-    //             document.getElementById('table_3').innerHTML = row
-    //             // element.innerHTML(row)
+            })  
+                document.getElementById('table_3').innerHTML = row
+                // element.innerHTML(row)
 
-    //     }).catch((err) => {
-    //         console.log(err);
-    //         }) 
-
-
-    // }
+        }).catch((err) => {
+            console.log(err);
+            }) 
 
 
+    }
 
-</script>>
+
+
+</script>
 <form action="/individual_entry" method="GET">
     <button type="submit">Previous</button>
 </form>

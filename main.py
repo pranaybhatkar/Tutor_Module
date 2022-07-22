@@ -190,7 +190,7 @@ def check_student():
     for student_records in individual_student_data:
         for each_list in students:
             if each_list[0] and each_list[1] in student_records:
-                return student_records
+                return {"details": student_records}
             else:
                 continue
 
