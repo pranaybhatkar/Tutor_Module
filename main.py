@@ -1,5 +1,4 @@
-from fastapi import FastAPI, Path, Request, File, UploadFile, Form, Depends, HTTPException, status
-from typing import Optional, Union
+from fastapi import FastAPI, Request, Form, Depends, HTTPException, status
 from pydantic import BaseModel
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
@@ -8,7 +7,7 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
 from Priorities import CS_IT_Count, Non_CS_IT_Count, Total_count, unique_list, final_answer_as_tuple, \
     list_with_subject_count_greater_than_five, final_weightage_as_tuple, final_time_period_as_tuple, \
-    individual_student_data
+    individual_student_data, check_records, individual_student_data_objects
 
 app = FastAPI()  # an instance of the imported FastAPI. Through this instance, we can use multiple
 
@@ -46,7 +45,6 @@ app.add_middleware(
 #
 @app.get("/")
 async def index(request: Request, response_class: HTMLResponse):
-    # return templates.TemplateResponse('input_validation.html', context={"request": request})
     return templates.TemplateResponse('index.html', context={"request": request})
 
 
@@ -55,13 +53,13 @@ async def index(request: Request, response_class: HTMLResponse):
 # fake_users_db = {
 #     "manav": {
 #         "username": "manav bharatiya",
-#         "hashed_password": "fakehashed21021997",
+#         "hashed_password": "fakehashed21/02/1997",
 #         "disabled": False,
 #     },
 #     "pranay": {
 #         "username": "pranay bhatkar",
-#         "hashed_password": "fakehashed26031994",
-#         "disabled": True,
+#         "hashed_password": "fakehashed26/03/1994",
+#         "disabled": False,
 #     },
 # }
 # def get_user(db, username: str):
@@ -150,24 +148,30 @@ def selection(request: Request, details: str = Form(...)):
         return templates.TemplateResponse('batch_details_one.html', context={"request": request})
 
 
+# students = []
+#
+#
+# @app.post("/individual_student_records")
+# def individual_records(request: Request, individual_username: str = Form(...), birthdate: str = Form(...)):
+#     for student_records in individual_student_data:
+#         if individual_username and birthdate in student_records:
+#             test.append(individual_username)
+#             test.append(birthdate)
+#             return templates.TemplateResponse('individual_student_details.html', context={"request": request})
+#         else:
+#             test.clear()
+#             continue
+
+
 test = []
-students = []
-
-
 @app.post("/individual_student_records")
 def individual_records(request: Request, individual_username: str = Form(...), birthdate: str = Form(...)):
-    for student_records in individual_student_data:
-        # if individual_username and birthdate in students:
-        #     return templates.TemplateResponse('individual_student_details.html', context={"request": request})
-        if individual_username and birthdate in student_records:
-            test.append(individual_username)
-            test.append(birthdate)
-            students.extend(test)
-            return templates.TemplateResponse('individual_student_details.html', context={"request": request})
-            # return {"details": student}
-        else:
-            continue
-            # raise HTTPException(status_code=400, detail="Incorrect username or password")
+    if individual_username and birthdate in check_records:
+        test.append(individual_username)
+        test.append(birthdate)
+        return templates.TemplateResponse('individual_student_details.html', context={"request": request})
+    else:
+        raise HTTPException(status_code=400, detail="Incorrect username or password")
 
     # if student:
     #     # return {"details": student}
@@ -185,17 +189,78 @@ def individual_records(request: Request, individual_username: str = Form(...), b
 #         else:
 #             continue
 
+# working
+
+# @app.get("/individual_student_details")
+# def check_student():
+#     for student_records in individual_student_data:
+#         for each_element in test:
+#             if each_element in student_records:
+#                 return {"details": student_records}
+#                 # return student_records
+#             else:
+#                 continue
+
+Fields = ['Serial_no','Name','DOB','Graduation_Stream','Institue/University','Post_Graduation_Stream','Institute/University','Tech_Stack_Certifications']
 @app.get("/individual_student_details")
 def check_student():
     for student_records in individual_student_data:
-        for each_list in students:
-            if each_list[0] and each_list[1] in student_records:
-                return {"details": student_records}
+        for element in test:
+            if element in student_records:
+                final_record_as_list = [[var_1,objects] for var_1,objects in zip(Fields,student_records)]
+                return {"details": final_record_as_list}
             else:
                 continue
 
 
+                # i = 0
+                # while i < len(student_records):
+                #     temp_var = student_records[i]
+                #     final_record_as_list.append(temp_var)
+                #     i += 1
+                #     print(final_record_as_list)
+                # else:
+                #     return {"details": final_record_as_list}
+
+
+                # return student_records
+            # else:
+            #     continue
+
+
+# for student_records in individual_student_data:
+#     for each_element in test:
+#         if each_element in student_records:
+#             return {"details": student_records}
+#         else:
+#             raise HTTPException(status_code=400, detail="Incorrect username or password")
+
+# print(individual_student_data)
+# print(students)
+# for student_records in individual_student_data:
+#     # for each_element in students:
+#         print("193", students, student_records)
+#         if students[0] == student_records[1] and students[1] == student_records[2]:
+#             print("195", student_records)
+#             return student_records
+#         # else:
+#         #     continue
+
+
 # @app.api_route("/individual_student_records", methods=["GET", "POST"])
+
+#
+#
+# @app.get("/individual_student_details")
+# async def check_student():
+#     for each_element in test:
+#         for objects in individual_student_data_objects:
+#             if each_element[0] in objects:
+#                 final_record_as_tuple.append(objects)
+#                 print(final_record_as_tuple)
+
+
+
 
 
 @app.get("/output")
@@ -220,8 +285,6 @@ async def index(request: Request, response_class: HTMLResponse):
 
 @app.get("/Count")
 async def get_count():
-    # return {"The no. of students belonging to CS/IT background is": CS_IT_Count}
-    # return ["CS_IT_Count", CS_IT_Count], ["Non_CS_IT_Count", Non_CS_IT_Count], ["Total_Count", Total_count]
     return {"count": [CS_IT_Count, Non_CS_IT_Count]}
 
 
@@ -232,31 +295,23 @@ async def get_tech_stack_certifications():
 
 @app.get("/Tech_Stack_Certifications_Known_By_Students")
 async def get_tech_stack_certifications():
-    # return {"The following list displays Languages/Tools and no. of students who have previously learned the same"
-    #         : final_answer_as_tuple}
     return {"subject_count": final_answer_as_tuple}
 
 
 @app.get("/Shortlisting_the_subjects")
 async def get_tech_stack_certifications():
-    # return {"The following list displays the subjects which are known to five or more than five students"
-    #         : list_with_subject_count_greater_than_five}
     return {"shortlist"
             : list_with_subject_count_greater_than_five}
 
 
 @app.get("/Weightage_per_Subject")
 async def get_tech_stack_certifications():
-    #     return {"The following list displays subjects and their corresponding weightage"
-    #             : final_weightage_as_tuple}
     return {"weightage"
             : final_weightage_as_tuple}
 
 
 @app.get("/Time_Period_per_Subject")
 async def get_tech_stack_certifications():
-    # return {"The following list displays subjects and corresponding time alloted to each subject"
-    #         : final_time_period_as_tuple}
     return {"Time"
             : final_time_period_as_tuple}
 

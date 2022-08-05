@@ -316,15 +316,64 @@ print(
 
 ############################################_____PRIORITY_5_____########################################################
 
-# For displaying individual records of a student, following logic is written.
+# For displaying individual records of a student, following logic is applied.
 
 cursor.execute("Select * from test_3")
 individual_student_data = []
-
+check_records = []
+check_records_length = 0
 for data in cursor:
     individual_student_data.append(list(data))
 
-# print(individual_student_data)
+
+print(individual_student_data)
+
+# Above-mentioned code is written for extracting individual record of each student from the database.
+
+for lists in individual_student_data:
+    lists[0] = str(lists[0])
+
+print(individual_student_data)
+
+# Code written above converts all the integer objects in the records into strings
+
+for lists in individual_student_data:
+    for all_data in lists:
+        check_records.append(str(all_data))
+
+print(check_records)
+
+# Code written above appends all the records to one list.
+# This list helps in validation purpose i.e. checks if the input entered by the user exists in database.
+# If YES, then the next HTML page is rendered, if NO, an HTML exception is raised.(Please check main.py for logic)
+
+individual_student_data_objects = []
+for every_list in individual_student_data:
+    for strings in zip(every_list):
+        var_1 = list(strings)
+        individual_student_data_objects.append(var_1)
+print(individual_student_data_objects)
+
+print(len(individual_student_data_objects))
+
+# Above code depicts the logic which helps in converting strings as list objects to be sent as the output.
+
+length_of_one_record = 0
+for every_list in individual_student_data:
+    length_of_one_record = len(every_list)
+    break
+
+print(length_of_one_record)
+
+# Code written above gives the length of 1 record i.e. (8)
+
+check_records_length = len(individual_student_data)
+print(check_records_length)
+
+# Code written above gives the number of records present in the database i.e. 30
+
+
+
 
 
 
