@@ -42,13 +42,13 @@ app.add_middleware(
 # class UserInDB(User):
 #     hashed_password: str
 #
-#
+
+# Index route for rendering the same.
 @app.get("/")
 async def index(request: Request, response_class: HTMLResponse):
     return templates.TemplateResponse('index.html', context={"request": request})
 
 
-#
 # ------------------------------------------attempt_1-------------------------------------------------#
 # fake_users_db = {
 #     "manav": {
@@ -140,6 +140,7 @@ def index(request: Request, username: str = Form(...), password: str = Form(...)
         raise HTTPException(status_code=400, detail="Incorrect username or password")
 
 
+# Route for selecting the type of output to be displayed.
 @app.post("/output_selection")
 def selection(request: Request, details: str = Form(...)):
     if details == "individual":
@@ -164,14 +165,18 @@ def selection(request: Request, details: str = Form(...)):
 
 
 test = []
+
+
 @app.post("/individual_student_records")
 def individual_records(request: Request, individual_username: str = Form(...), birthdate: str = Form(...)):
-    if individual_username and birthdate in check_records:
-        test.append(individual_username)
-        test.append(birthdate)
-        return templates.TemplateResponse('individual_student_details.html', context={"request": request})
-    else:
-        raise HTTPException(status_code=400, detail="Incorrect username or password")
+    for student_records in individual_student_data:
+        if individual_username and birthdate in student_records:
+            test.append(individual_username)
+            test.append(birthdate)
+            return templates.TemplateResponse('individual_student_details.html', context={"request": request})
+        else:
+            continue
+            # raise HTTPException(status_code=400, detail="Incorrect username or password")
 
     # if student:
     #     # return {"details": student}
@@ -189,79 +194,23 @@ def individual_records(request: Request, individual_username: str = Form(...), b
 #         else:
 #             continue
 
-# working
 
-# @app.get("/individual_student_details")
-# def check_student():
-#     for student_records in individual_student_data:
-#         for each_element in test:
-#             if each_element in student_records:
-#                 return {"details": student_records}
-#                 # return student_records
-#             else:
-#                 continue
+Fields = ['Serial_no', 'Name', 'DOB', 'Graduation_Stream', 'Institue/University', 'Post_Graduation_Stream',
+          'Institute/University', 'Tech_Stack_Certifications']
 
-Fields = ['Serial_no','Name','DOB','Graduation_Stream','Institue/University','Post_Graduation_Stream','Institute/University','Tech_Stack_Certifications']
+
 @app.get("/individual_student_details")
 def check_student():
     for student_records in individual_student_data:
         for element in test:
             if element in student_records:
-                final_record_as_list = [[var_1,objects] for var_1,objects in zip(Fields,student_records)]
+                final_record_as_list = [[var_1, objects] for var_1, objects in zip(Fields, student_records)]
                 return {"details": final_record_as_list}
             else:
-                continue
+                raise HTTPException(status_code=400, detail="Incorrect username or password")
 
 
-                # i = 0
-                # while i < len(student_records):
-                #     temp_var = student_records[i]
-                #     final_record_as_list.append(temp_var)
-                #     i += 1
-                #     print(final_record_as_list)
-                # else:
-                #     return {"details": final_record_as_list}
-
-
-                # return student_records
-            # else:
-            #     continue
-
-
-# for student_records in individual_student_data:
-#     for each_element in test:
-#         if each_element in student_records:
-#             return {"details": student_records}
-#         else:
-#             raise HTTPException(status_code=400, detail="Incorrect username or password")
-
-# print(individual_student_data)
-# print(students)
-# for student_records in individual_student_data:
-#     # for each_element in students:
-#         print("193", students, student_records)
-#         if students[0] == student_records[1] and students[1] == student_records[2]:
-#             print("195", student_records)
-#             return student_records
-#         # else:
-#         #     continue
-
-
-# @app.api_route("/individual_student_records", methods=["GET", "POST"])
-
-#
-#
-# @app.get("/individual_student_details")
-# async def check_student():
-#     for each_element in test:
-#         for objects in individual_student_data_objects:
-#             if each_element[0] in objects:
-#                 final_record_as_tuple.append(objects)
-#                 print(final_record_as_tuple)
-
-
-
-
+# Written for Navigation Purpose(Renders on button press)
 
 @app.get("/output")
 async def index(request: Request, response_class: HTMLResponse):
@@ -281,6 +230,9 @@ async def index(request: Request, response_class: HTMLResponse):
 @app.get("/individual_entry")
 async def index(request: Request, response_class: HTMLResponse):
     return templates.TemplateResponse('individual_student_entry.html', context={"request": request})
+
+
+# Basic Routes for returning the desired data output.
 
 
 @app.get("/Count")
