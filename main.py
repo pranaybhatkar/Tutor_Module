@@ -74,7 +74,7 @@ def individual_records(request: Request, individual_username: str = Form(...), b
             raise HTTPException(status_code=400, detail="Incorrect username or password")
 
 
-Fields = ['Serial_no', 'Name', 'DOB', 'Graduation_Stream', 'Institue/University', 'Post_Graduation_Stream',
+Fields = ['Serial_no', 'Name', 'DOB', 'Graduation_Stream', 'Institute/University', 'Post_Graduation_Stream',
           'Institute/University', 'Tech_Stack_Certifications']
 
 
@@ -112,7 +112,6 @@ async def index(request: Request, response_class: HTMLResponse):
 
 
 # Basic Routes for returning the desired data output(Batch details).
-
 
 @app.get("/Count")
 async def get_count():
