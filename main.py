@@ -34,109 +34,18 @@ app.add_middleware(
 )
 
 
-# class User(BaseModel):
-#     username: str
-#     disabled: Union[bool, None] = None
-#
-#
-# class UserInDB(User):
-#     hashed_password: str
-#
-
 # Index route for rendering the same.
 @app.get("/")
 async def index(request: Request, response_class: HTMLResponse):
     return templates.TemplateResponse('index.html', context={"request": request})
 
 
-# ------------------------------------------attempt_1-------------------------------------------------#
-# fake_users_db = {
-#     "manav": {
-#         "username": "manav bharatiya",
-#         "hashed_password": "fakehashed21/02/1997",
-#         "disabled": False,
-#     },
-#     "pranay": {
-#         "username": "pranay bhatkar",
-#         "hashed_password": "fakehashed26/03/1994",
-#         "disabled": False,
-#     },
-# }
-# def get_user(db, username: str):
-#     if username in db:
-#         user_dict = db[username]
-#         return UserInDB(**user_dict)
-#
-#
-# def fake_decode_token(token):
-#     user = get_user(fake_users_db, token)
-#     return user
-#
-#
-# def fake_hash_password(password: str):
-#     return "fake-hashed" + password
-#
-#
-# async def get_current_user(token: str = Depends(oauth2_scheme)):
-#     user = fake_decode_token(token)
-#     if not user:
-#         raise HTTPException(
-#             status_code=status.HTTP_401_UNAUTHORIZED,
-#             detail="Invalid authentication credentials",
-#             headers={"WWW-Authenticate": "Bearer"},
-#         )
-#     return user
-#
-#
-# async def get_current_active_user(current_user: User = Depends(get_current_user)):
-#     if current_user.disabled:
-#         raise HTTPException(status_code=400, detail="Inactive user")
-#     return current_user
-#
-#
-# @app.post("/token")
-# async def login(request: Request, username: str = Form(...), password: str = Form(...)):
-#     user_dict = fake_users_db.get(username)
-#     if not user_dict:
-#         raise HTTPException(status_code=400, detail="Incorrect username or password")
-#     user = UserInDB(**user_dict)
-#     hashed_password = fake_hash_password(password)
-#     if not hashed_password == user.hashed_password:
-#         raise HTTPException(status_code=400, detail="Incorrect username or password")
-#
-#     return {"access_token": user.username, "token_type": "bearer"}
-#
-#
-# @app.get("/input_details")
-# async def read_users_me(request: Request, username: str = Form(...), password: str = Form(...),
-#                         current_user: User = Depends(get_current_active_user)):
-#     if current_user:
-#         return templates.TemplateResponse('output_selection.html', context={"request": request})
-#     else:
-#         raise HTTPException(status_code=400, detail="Incorrect username or password")
-
-# ------------------------------------------attempt_2----------------------------------------------------#
-# @app.post("/token")
-# async def received_data(form_data: OAuth2PasswordRequestForm = Depends()):
-#     return {"access_token": form_data.username + "token"}
-
-
-# @app.post("/input_details")
-# async def index(request: Request, token: str = Depends(oauth2_scheme)):
-#     if "access_token" in token:
-#         return templates.TemplateResponse('output_selection.html', context={"request": request})
-#     else:
-#         raise HTTPException(status_code=400, detail="Incorrect username or password")
-
-# -------------------------------------------------------------------------------------------------------#
-
+# For checking the input details.
 @app.post("/input_details")
 def index(request: Request, username: str = Form(...), password: str = Form(...)):
     if username == 'admin' and password == 'password':
-        # return templates.TemplateResponse('batch_details_one.html', context={"request": request})
         return templates.TemplateResponse('output_selection.html', context={"request": request})
     else:
-        # return {"Access Denied": "Enter Admin as user-name and 'password' as password"}
         raise HTTPException(status_code=400, detail="Incorrect username or password")
 
 
@@ -149,21 +58,7 @@ def selection(request: Request, details: str = Form(...)):
         return templates.TemplateResponse('batch_details_one.html', context={"request": request})
 
 
-# students = []
-#
-#
-# @app.post("/individual_student_records")
-# def individual_records(request: Request, individual_username: str = Form(...), birthdate: str = Form(...)):
-#     for student_records in individual_student_data:
-#         if individual_username and birthdate in student_records:
-#             test.append(individual_username)
-#             test.append(birthdate)
-#             return templates.TemplateResponse('individual_student_details.html', context={"request": request})
-#         else:
-#             test.clear()
-#             continue
-
-
+# Routes for fetching and displaying individual student data.
 test = []
 
 
@@ -171,28 +66,12 @@ test = []
 def individual_records(request: Request, individual_username: str = Form(...), birthdate: str = Form(...)):
     for student_records in individual_student_data:
         if individual_username and birthdate in student_records:
+            test.clear()
             test.append(individual_username)
             test.append(birthdate)
             return templates.TemplateResponse('individual_student_details.html', context={"request": request})
         else:
-            continue
-            # raise HTTPException(status_code=400, detail="Incorrect username or password")
-
-    # if student:
-    #     # return {"details": student}
-    #     return templates.TemplateResponse('individual_student_details.html', context={"request": request})
-    # else:
-    #     raise HTTPException(status_code=400, detail="Incorrect username or password")
-
-
-# @app.get("/individual_student_details")
-# def check_student(request: Request, individual_username: str = Form(...), birthdate: str = Form(...)):
-#     for student_records in individual_student_data:
-#         # for details in student_records:  # try to get the output by commenting this line
-#         if individual_username and birthdate in student_records:
-#             return student_records
-#         else:
-#             continue
+            raise HTTPException(status_code=400, detail="Incorrect username or password")
 
 
 Fields = ['Serial_no', 'Name', 'DOB', 'Graduation_Stream', 'Institue/University', 'Post_Graduation_Stream',
@@ -232,7 +111,7 @@ async def index(request: Request, response_class: HTMLResponse):
     return templates.TemplateResponse('individual_student_entry.html', context={"request": request})
 
 
-# Basic Routes for returning the desired data output.
+# Basic Routes for returning the desired data output(Batch details).
 
 
 @app.get("/Count")

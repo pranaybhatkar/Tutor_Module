@@ -51,6 +51,7 @@ cursor = connector.cursor()
 # print(test_list)
 
 
+
 ############################################_____PRIORITY_1_____########################################################
 
 # Logic for extracting Graduation streams from the table stored inside the Database.
@@ -212,6 +213,8 @@ print(
 # A) A Count of CS/IT and Non-CS/IT Students
 # B) A list of subjects along with the count of students who have studied the subject before.
 
+
+
 ############################################_____PRIORITY_2_____########################################################
 
 # Logic written below is to shortlist the topics from the available list of Languages/tools known by the students.
@@ -239,6 +242,8 @@ for all_sub_lists in final_answer_as_list:
 
 print(f'The following list displays the subjects which are known to five or more than five students:'
       f'\n{list_with_subject_count_greater_than_five}')
+
+
 
 ############################################_____PRIORITY_3_____########################################################
 
@@ -279,6 +284,8 @@ final_weightage_as_tuple = [(subject, weightage) for subject, weightage in zip(s
 # print(final_weightage_as_list)
 print(f'The following list displays subjects and their corresponding weightage:\n{final_weightage_as_tuple}')
 
+
+
 ############################################_____PRIORITY_4_____########################################################
 
 # For calculating and assigning time per subject, the below logic is written. A list containing the weightages obtained
@@ -312,6 +319,7 @@ final_time_period_as_tuple = [(topic, time) for topic, time in zip(another_subje
 # print(final_time_period_as_list)
 print(
     f'The following list displays subjects and corresponding time alloted to each subject:\n{final_time_period_as_tuple}')
+
 
 
 ############################################_____PRIORITY_5_____########################################################
