@@ -1,9 +1,7 @@
-from fastapi import FastAPI, Request, Form, Depends, HTTPException, status
-from pydantic import BaseModel
+from fastapi import FastAPI, Request, Form, HTTPException
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
 from Priorities import CS_IT_Count, Non_CS_IT_Count, Total_count, unique_list, final_answer_as_tuple, \
     list_with_subject_count_greater_than_five, final_weightage_as_tuple, final_time_period_as_tuple, \
@@ -13,8 +11,6 @@ app = FastAPI()  # an instance of the imported FastAPI. Through this instance, w
 
 # methods associated with FastAPI.
 
-
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 templates = Jinja2Templates(directory="templates")
 

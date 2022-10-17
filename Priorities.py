@@ -186,6 +186,7 @@ print(f'The following list displays the tech-stack known by students :\n{unique_
 
 # To get a count of each element in the list of unique elements, another empty list is defined. To get a count of
 # each element, it is necessary to count the number of times that element is repeated in the repetitive_subjects_list.
+# this will help us in calculating the number of students who have previously studied a respective subject(in the list.)
 # for this purpose, a for loop is used to get the count of each element in the unique list,
 # from the repetitive_subjects_list, which is then appended to the empty list defined just before the for loop.
 
